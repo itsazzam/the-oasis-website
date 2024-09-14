@@ -1,4 +1,4 @@
-import Header from "./_components/Header";
+import Header from "@/app/_components/Header";
 
 import "@/app/_styles/globals.css";
 import { Josefin_Sans } from "next/font/google";
@@ -20,10 +20,13 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${josefin.className} bg-primary-950 text-primary-100 min-h-screen px-10`}
+        className={`${josefin.className} relative bg-primary-950 text-primary-100 min-h-screen flex flex-col px-10`}
       >
         <Header />
-        <main>{children}</main>
+        <div className="flex-1 px-8 py-12" >
+
+        <main className="max-w-7xl mx-auto">{children}</main>
+        </div>
       </body>
     </html>
   );
