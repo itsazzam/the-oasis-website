@@ -1,8 +1,14 @@
 import Image from "next/image";
-import firstImage from "../../public/about-1.jpg"; 
+import firstImage from "../../public/about-1.jpg";
 import secondImage from "../../public/about-2.jpg";
+import { getCabins } from "../_lib/data-service";
 
-export default function Page() {
+// revalidate data cache every day minutes\
+export const revalidate = 86400;
+
+export default async function Page() {
+  const cabins = await getCabins();
+
   return (
     <div className="grid grid-cols-5 gap-x-24 gap-y-32 text-lg items-center">
       <div className="col-span-3">
@@ -19,10 +25,10 @@ export default function Page() {
             and enjoying simple pleasures with family.
           </p>
           <p>
-            Our 8 luxury cabins provide a cozy base, but the real freedom and
-            peace you&aposll find in the surrounding mountains. Wander through
-            lush forests, breathe in the fresh air, and watch the stars twinkle
-            above from the warmth of a campfire or your hot tub.
+            Our {cabins.length} luxury cabins provide a cozy base, but the real
+            freedom and peace you&aposll find in the surrounding mountains.
+            Wander through lush forests, breathe in the fresh air, and watch the
+            stars twinkle above from the warmth of a campfire or your hot tub.
           </p>
           <p>
             This is where memorable moments are made, surrounded by nature&aposs
@@ -34,17 +40,21 @@ export default function Page() {
 
       <div className="col-span-2">
         <Image
-          
-          src= {firstImage}
+          src={firstImage}
           quality={90}
           layout="responsive"
-          placeholder="blur"          
+          placeholder="blur"
           alt="Family sitting around a fire pit in front of cabin"
         />
       </div>
 
       <div className="col-span-2 relative aspect-square">
-        <Image src={secondImage} fill className="object-cover" alt="Family that manages The Wild Oasis" />
+        <Image
+          src={secondImage}
+          fill
+          className="object-cover"
+          alt="Family that manages The Wild Oasis"
+        />
       </div>
 
       <div className="col-span-3">
